@@ -1,0 +1,5 @@
+{
+  "name": "Drink-Dose: Hydration and Kidney Health Calculator",
+  "description": "A web application to calculate your daily water intake and assess kidney function with an eGFR calculator. Your adaptive hydration and health partner.",
+  "requestFramePermissions": []
+}
