@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Navigation Test | Drink-Dose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="logo.png" alt="Drink-Dose Logo" class="logo">
+                <span class="brand-name">Drink-Dose</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="kidney-calculator.html" class="nav-link">Kidney Calculator</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <h1 class="hero-title">Mobile Navigation Test</h1>
+                <p class="hero-subtitle">Test your mobile navigation responsiveness</p>
+            </section>
+
+            <section class="info-section">
+                <h2 class="section-title">How to Test Mobile Navigation</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>📱 On Mobile Device</h3>
+                        <p>1. Open this page on your mobile device<br>
+                        2. Look for hamburger menu (☰) on the right<br>
+                        3. Tap to open/close mobile menu<br>
+                        4. Menu should slide down from header</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>💻 On Desktop</h3>
+                        <p>1. Open this page on desktop browser<br>
+                        2. Resize browser window smaller<br>
+                        3. Below 768px width, hamburger menu appears<br>
+                        4. Test responsive behavior</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>✅ Success Indicators</h3>
+                        <p>• Menu items are properly aligned<br>
+                        • No text overflow or cut-off<br>
+                        • Smooth hamburger animation<br>
+                        • Menu closes when link is clicked<br>
+                        • Works on all device sizes</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

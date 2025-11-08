@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Health Calculator | Drink-Dose</title>
+    <meta name="description" content="Kidney health calculator based on urea and creatinine levels. Assess your kidney function with our easy-to-use health tool.">
+    <meta name="keywords" content="kidney calculator, urea creatinine, kidney health, eGFR, kidney function, health assessment">
+    <meta name="google-site-verification" content="KODE_VERIFIKASI_GOOGLE_KAMU">
+    
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_TRACKING_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YOUR_TRACKING_ID');
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="logo.png" alt="Drink-Dose Logo" class="logo">
+                <span class="brand-name">Drink-Dose</span>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="kidney-calculator.html" class="nav-link active">Kidney Calculator</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Top Ad Slot - Hidden for development -->
+    <div class="ad-slot ad-top" style="display: none;">
+        <div class="ads">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXX"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <h1 class="hero-title">Kidney Health Calculator</h1>
+                <p class="hero-subtitle">Assess your kidney function based on urea and creatinine levels</p>
+            </section>
+
+            <!-- Kidney Calculator Section -->
+            <section class="calculator-section">
+                <div class="calculator-card">
+                    <h2 class="section-title">Calculate Your Kidney Health Status</h2>
+                    <p class="calculator-description">Enter your laboratory test results to assess your kidney function. This calculator provides an estimated eGFR (estimated Glomerular Filtration Rate) based on your creatinine levels.</p>
+                    
+                    <form class="calculator-form" id="kidneyCalculator">
+                        <div class="input-group">
+                            <label for="age" class="input-label">Age (years)</label>
+                            <input type="number" id="age" class="input-field" placeholder="Enter your age" min="18" max="120" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="gender" class="input-label">Gender</label>
+                            <select id="gender" class="input-field" required>
+                                <option value="">Select your gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="creatinine" class="input-label">Creatinine (mg/dL)</label>
+                            <input type="number" id="creatinine" class="input-field" placeholder="Enter creatinine level" min="0.1" max="15" step="0.01" required>
+                            <small class="input-hint">Normal range: 0.6-1.2 mg/dL for adults</small>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="urea" class="input-label">Urea/BUN (mg/dL)</label>
+                            <input type="number" id="urea" class="input-field" placeholder="Enter urea/BUN level" min="5" max="200" step="1" required>
+                            <small class="input-hint">Normal range: 7-20 mg/dL for adults</small>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">Assess Kidney Health</button>
+                    </form>
+
+                    <!-- Results Section -->
+                    <div class="results-section" id="kidneyResultsSection" style="display: none;">
+                        <h3 class="results-title">Your Kidney Health Assessment</h3>
+                        
+                        <!-- eGFR Result -->
+                        <div class="kidney-result-card">
+                            <h4>Estimated GFR (eGFR)</h4>
+                            <div class="kidney-gfr-display" id="gfrDisplay">
+                                <div class="gfr-value" id="gfrValue">--</div>
+                                <div class="gfr-unit">mL/min/1.73m²</div>
+                            </div>
+                            <div class="kidney-status" id="kidneyStatus">
+                                <!-- Status will be filled by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Detailed Results -->
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-label">Creatinine Level</div>
+                                <div class="result-value" id="creatinineResult">--</div>
+                                <div class="result-unit">mg/dL</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Urea/BUN Level</div>
+                                <div class="result-value" id="ureaResult">--</div>
+                                <div class="result-unit">mg/dL</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Health Information -->
+                        <div class="health-info-section">
+                            <h4>Health Information</h4>
+                            <div class="info-cards" id="healthInfoCards">
+                                <!-- Information cards will be generated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Medical Disclaimer -->
+                        <div class="medical-disclaimer">
+                            <h4>⚠️ Medical Disclaimer</h4>
+                            <p>This calculator provides estimates only and should not replace professional medical advice, diagnosis, or treatment. Always consult with your healthcare provider for accurate kidney function assessment and interpretation of laboratory results.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Middle Ad Slot - Hidden for development -->
+            <div class="ad-slot ad-middle" style="display: none;">
+                <div class="ads">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXX"
+                         data-ad-slot="1234567891"
+                         data-ad-format="auto"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <section class="info-section">
+                <h2 class="section-title">Understanding Kidney Health</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🏥 What is eGFR?</h3>
+                        <p>eGFR (estimated Glomerular Filtration Rate) measures how well your kidneys are filtering blood. It's calculated using your age, gender, and creatinine levels. Higher eGFR values indicate better kidney function.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>🧪 Creatinine Levels</h3>
+                        <p>Creatinine is a waste product from muscle metabolism. Healthy kidneys filter creatinine from the blood. Elevated levels may indicate reduced kidney function.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>🩸 Urea/BUN Levels</h3>
+                        <p>Urea is a waste product from protein breakdown. High urea levels can indicate kidney problems, dehydration, or other medical conditions.</p>
+                    </div>
+                </div>
+                
+                <div class="reference-section">
+                    <h4>📊 Kidney Health Categories</h4>
+                    <div class="category-legend">
+                        <div class="category-item green">
+                            <div class="category-color"></div>
+                            <div class="category-text">
+                                <strong>Normal (Green):</strong> eGFR ≥ 90 mL/min/1.73m²
+                                <p>Kidney function is normal or only mildly reduced.</p>
+                            </div>
+                        </div>
+                        <div class="category-item yellow">
+                            <div class="category-color"></div>
+                            <div class="category-text">
+                                <strong>Mild to Moderate (Yellow):</strong> eGFR 30-89 mL/min/1.73m²
+                                <p>Kidney function is moderately reduced. May require monitoring and lifestyle changes.</p>
+                            </div>
+                        </div>
+                        <div class="category-item red">
+                            <div class="category-color"></div>
+                            <div class="category-text">
+                                <strong>Severe (Red):</strong> eGFR &lt; 30 mL/min/1.73m²
+                                <p>Severe kidney disease. Requires immediate medical attention and specialized care.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Drink-Dose Logo" class="footer-logo">
+                    <span class="footer-brand-name">Drink-Dose</span>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link">Terms of Service</a>
+                    <a href="contact.html" class="footer-link">Contact</a>
+                    <a href="about.html" class="footer-link">About</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HydroLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Ad Slot - Hidden for development -->
+    <div class="ad-slot ad-bottom" style="display: none;">
+        <div class="ads">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXX"
+                 data-ad-slot="1234567892"
+                 data-ad-format="auto"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <script>
+        // Kidney Calculator JavaScript
+        document.getElementById('kidneyCalculator').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const creatinine = parseFloat(document.getElementById('creatinine').value);
+            const urea = parseFloat(document.getElementById('urea').value);
+            
+            // Calculate eGFR using CKD-EPI equation (2021)
+            let egfr;
+            const kappa = gender === 'male' ? 0.9 : 0.7;
+            const alpha = gender === 'male' ? -0.411 : -0.329;
+            const minCrKappa = Math.min(creatinine / kappa, 1);
+            const maxCrKappa = Math.max(creatinine / kappa, 1);
+            
+            egfr = 141 * 
+                   Math.pow(minCrKappa, alpha) * 
+                   Math.pow(maxCrKappa, -1.200) * 
+                   Math.pow(0.9938, age);
+            
+            // Add gender factor
+            if (gender === 'female') {
+                egfr = egfr * 1.018;
+            }
+            
+            // Ensure eGFR is not negative and round
+            egfr = Math.max(0, egfr);
+            egfr = Math.round(egfr);
+            
+            // Determine kidney status
+            let status, statusColor, statusText;
+            if (egfr >= 90) {
+                status = 'normal';
+                statusColor = 'green';
+                statusText = 'Normal Kidney Function';
+            } else if (egfr >= 30) {
+                status = 'moderate';
+                statusColor = 'yellow';
+                statusText = 'Mild to Moderate Kidney Disease';
+            } else {
+                status = 'severe';
+                statusColor = 'red';
+                statusText = 'Severe Kidney Disease';
+            }
+            
+            // Display results
+            document.getElementById('gfrValue').textContent = Math.round(egfr);
+            document.getElementById('creatinineResult').textContent = creatinine.toFixed(2);
+            document.getElementById('ureaResult').textContent = urea.toFixed(0);
+            
+            // Set status
+            const statusElement = document.getElementById('kidneyStatus');
+            statusElement.className = `kidney-status kidney-status-${statusColor}`;
+            statusElement.innerHTML = `
+                <div class="status-indicator"></div>
+                <div class="status-text">
+                    <div class="status-title">${statusText}</div>
+                    <div class="status-description">${getStatusDescription(status)}</div>
+                </div>
+            `;
+            
+            // Generate health information cards
+            generateHealthInfoCards(egfr, creatinine, urea, statusColor, gender);
+            
+            // Show results section
+            document.getElementById('kidneyResultsSection').style.display = 'block';
+            document.getElementById('kidneyResultsSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function getStatusDescription(status) {
+            switch (status) {
+                case 'normal':
+                    return 'Your kidney function appears to be normal. Continue maintaining a healthy lifestyle.';
+                case 'moderate':
+                    return 'Your kidney function shows some decline. Consider consulting a healthcare provider for regular monitoring.';
+                case 'severe':
+                    return 'Your kidney function is significantly reduced. Please consult a nephrologist or healthcare provider immediately.';
+                default:
+                    return '';
+            }
+        }
+        
+        function generateHealthInfoCards(egfr, creatinine, urea, statusColor, gender) {
+            const cardsContainer = document.getElementById('healthInfoCards');
+            cardsContainer.innerHTML = '';
+            
+            // eGFR Card
+            const egfrCard = createInfoCard('eGFR Score', 
+                `Your estimated GFR is ${Math.round(egfr)} mL/min/1.73m²`, 
+                '🏥', statusColor);
+            cardsContainer.appendChild(egfrCard);
+            
+            // Creatinine Analysis
+            let creatinineStatus = 'normal';
+            let creatinineText = 'Normal creatinine level';
+            if (gender === 'male') {
+                if (creatinine > 1.2) {
+                    creatinineStatus = 'high';
+                    creatinineText = 'High creatinine level - may indicate kidney issues';
+                } else if (creatinine < 0.6) {
+                    creatinineStatus = 'low';
+                    creatinineText = 'Low creatinine level - may be normal for some individuals';
+                }
+            } else {
+                if (creatinine > 1.0) {
+                    creatinineStatus = 'high';
+                    creatinineText = 'High creatinine level - may indicate kidney issues';
+                } else if (creatinine < 0.5) {
+                    creatinineStatus = 'low';
+                    creatinineText = 'Low creatinine level - may be normal for some individuals';
+                }
+            }
+            
+            const creatinineCard = createInfoCard('Creatinine Analysis', 
+                creatinineText, '🧪', creatinineStatus);
+            cardsContainer.appendChild(creatinineCard);
+            
+            // Urea Analysis
+            let ureaStatus = 'normal';
+            let ureaText = 'Normal urea level';
+            if (urea > 20) {
+                ureaStatus = 'high';
+                ureaText = 'High urea level - may indicate kidney dysfunction or dehydration';
+            } else if (urea < 7) {
+                ureaStatus = 'low';
+                ureaText = 'Low urea level - may indicate good kidney function or overhydration';
+            }
+            
+            const ureaCard = createInfoCard('Urea Analysis', 
+                ureaText, '🩸', ureaStatus);
+            cardsContainer.appendChild(ureaCard);
+        }
+        
+        function createInfoCard(title, description, icon, status) {
+            const card = document.createElement('div');
+            card.className = `info-card info-card-${status}`;
+            card.innerHTML = `
+                <div class="info-card-icon">${icon}</div>
+                <div class="info-card-content">
+                    <h4>${title}</h4>
+                    <p>${description}</p>
+                </div>
+            `;
+            return card;
+        }
+    </script>
+</body>
+</html>

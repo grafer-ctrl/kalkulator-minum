@@ -1,57 +1,216 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drink-Dose | Your Adaptive Hydration Partner</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Calculate your personalized daily water intake and assess your kidney health with our eGFR calculator. Drink-Dose helps you stay hydrated and healthy." />
-    <meta name="keywords" content="water intake calculator, hydration calculator, kidney health, eGFR calculator, daily water needs, drink water, health, wellness, creatinine, urea, BUN" />
-    <meta name="author" content="Drink-Dose.com" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Google Site Verification Code (replace 'YOUR_VERIFICATION_CODE' with your actual code from Google Search Console) -->
-    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
-
-    <!-- Google AdSense Script (replace 'YOUR_ADSENSE_CLIENT_ID' with your actual client ID after approval) -->
-    <!-- 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID"
-     crossorigin="anonymous"></script>
-    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drink-Dose | Daily Water Intake Calculator</title>
+    <meta name="description" content="Water intake calculator to calculate daily fluid needs based on weight, age, and activity level. Track your hydration and stay healthy.">
+    <meta name="keywords" content="water intake calculator, daily water needs, health, hydration, drink water, healthy lifestyle, fluid balance, dehydration prevention">
+    <meta name="google-site-verification" content="KODE_VERIFIKASI_GOOGLE_KAMU">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_TRACKING_ID"></script>
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#00A9FF',
-              secondary: '#A0E9FF',
-              accent: '#CDF5FD',
-              dark: '#00224D',
-            },
-          }
-        }
-      }
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YOUR_TRACKING_ID');
     </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.5",
-    "vite": "https://aistudiocdn.com/vite@^7.2.2",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.0"
-  }
-}
-</script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-  <body class="bg-gray-50">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="logo.png" alt="Drink-Dose Logo" class="logo">
+                <span class="brand-name">Drink-Dose</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="kidney-calculator.html" class="nav-link">Kidney Calculator</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Top Ad Slot - Hidden for development -->
+    <div class="ad-slot ad-top" style="display: none;">
+        <div class="ads">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXX"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <h1 class="hero-title">Daily Water Intake Calculator</h1>
+                <p class="hero-subtitle">Calculate your optimal daily water needs and track your hydration goals</p>
+            </section>
+
+            <!-- Calculator Section -->
+            <section class="calculator-section">
+                <div class="calculator-card">
+                    <h2 class="section-title">Calculate Your Water Needs</h2>
+                    
+                    <form class="calculator-form" id="waterCalculator">
+                        <div class="input-group">
+                            <label for="weight" class="input-label">Weight (kg)</label>
+                            <input type="number" id="weight" class="input-field" placeholder="Enter your weight" min="1" max="300" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="age" class="input-label">Age (years)</label>
+                            <input type="number" id="age" class="input-field" placeholder="Enter your age" min="1" max="120" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">Activity Level</label>
+                            <div class="activity-selector">
+                                <button type="button" class="activity-btn" data-level="light">Light</button>
+                                <button type="button" class="activity-btn" data-level="moderate">Moderate</button>
+                                <button type="button" class="activity-btn" data-level="heavy">Heavy</button>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">Calculate Water Needs</button>
+                    </form>
+
+                    <!-- Results Section -->
+                    <div class="results-section" id="resultsSection" style="display: none;">
+                        <h3 class="results-title">Your Daily Water Requirements</h3>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-value" id="litersResult">0</div>
+                                <div class="result-label">Liters per day</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="glassesResult">0</div>
+                                <div class="result-label">Glasses (250ml) per day</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hourly Tracking -->
+                        <div class="tracking-section">
+                            <h4 class="tracking-title">Hourly Intake Tracking</h4>
+                            <p class="tracking-subtitle">Track your water intake throughout the day. Click each hour as you drink water.</p>
+                            <div class="tracking-timeline" id="trackingTimeline">
+                                <!-- Timeline will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Middle Ad Slot - Hidden for development -->
+            <div class="ad-slot ad-middle" style="display: none;">
+                <div class="ads">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXX"
+                         data-ad-slot="1234567891"
+                         data-ad-format="auto"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <!-- WHO Article Section -->
+            <section class="tips-section">
+                <h2 class="section-title">💧 The Importance of Adjusting Your Water Intake to Activity and Environment</h2>
+                <p class="who-subtitle">Based on WHO Principles – Nutrients in Drinking Water (2005)</p>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h3>🌡️ Environment Affects Hydration Needs</h3>
+                        <p>Temperature and humidity have a significant influence on how much water your body requires. In hot or humid climates, you lose more fluids through sweat, meaning you need to drink more water. In cooler environments, water loss is lower — but proper hydration is still essential for organ function and metabolism.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3>🏃‍♀️ Physical Activity Increases Fluid Demand</h3>
+                        <p>If you're physically active — whether through exercise or outdoor work — your daily hydration needs will rise. Water helps maintain electrolyte balance, regulate body temperature, and support muscle recovery. Drink water before, during, and after physical activity to keep your performance and energy levels high.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3>🥗 Water Isn't the Only Source of Hydration</h3>
+                        <p>WHO also highlights that hydration doesn't come from drinking water alone. Foods like fruits, vegetables, and soups contribute significantly to your total daily fluid intake. This means that balanced nutrition plays an important role in staying hydrated.</p>
+                    </div>
+                </div>
+                
+                <div class="who-reference">
+                    <h4>💡 Listen to Your Body</h4>
+                    <p>You don't have to obsess over the "2-liter rule." Instead, pay attention to simple signs: clear urine, a lack of excessive thirst, and feeling refreshed are all indicators that you're well-hydrated.</p>
+                    
+                    <h4>🌍 Drink Dose: Your Adaptive Hydration Partner</h4>
+                    <p>At <strong>drink-dose.com</strong>, we believe that smart hydration means tailoring your water intake to your lifestyle, activities, and environment. We support the WHO's view that everyone's hydration needs are dynamic and context-dependent — because every body is unique.</p>
+                    
+                    <p><em>Reference: WHO – Nutrients in Drinking Water (2005)</em></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Drink-Dose Logo" class="footer-logo">
+                    <span class="footer-brand-name">Drink-Dose</span>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link">Terms of Service</a>
+                    <a href="contact.html" class="footer-link">Contact</a>
+                    <a href="about.html" class="footer-link">About</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HydroLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Ad Slot - Hidden for development -->
+    <div class="ad-slot ad-bottom" style="display: none;">
+        <div class="ads">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXX"
+                 data-ad-slot="1234567892"
+                 data-ad-format="auto"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
