@@ -1143,3 +1143,200 @@ body {
         text-align: center;
     }
 }
+
+/* Articles Page Styling */
+.articles-section {
+    margin-top: var(--space-xl);
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xxl);
+}
+
+.article-card {
+    background: var(--neutral-100);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.article-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.article-header {
+    margin-bottom: var(--space-md);
+}
+
+.article-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+}
+
+.article-meta {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--neutral-400);
+}
+
+.article-category {
+    background: var(--primary-100);
+    color: var(--primary-500);
+    padding: 2px var(--space-xs);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+.article-excerpt {
+    color: var(--neutral-700);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.article-benefits,
+.article-formula,
+.article-symptoms,
+.article-tips,
+.article-quality,
+.article-comparison {
+    background: var(--neutral-50);
+    border-left: 4px solid var(--primary-500);
+    padding: var(--space-sm);
+    border-radius: 4px;
+    margin: var(--space-sm) 0;
+}
+
+.article-benefits h4,
+.article-formula h4,
+.article-symptoms h4,
+.article-tips h4,
+.article-quality h4,
+.article-comparison h4 {
+    color: var(--primary-500);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+}
+
+.article-benefits ul,
+.article-symptoms ul,
+.article-tips ul,
+.article-quality ul,
+.article-comparison ul {
+    margin-left: var(--space-sm);
+    color: var(--neutral-700);
+}
+
+.article-benefits li,
+.article-symptoms li,
+.article-tips li,
+.article-quality li,
+.article-comparison li {
+    margin-bottom: var(--space-xs);
+    line-height: 1.5;
+}
+
+.article-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--neutral-200);
+}
+
+.read-time {
+    font-size: 0.875rem;
+    color: var(--neutral-400);
+}
+
+.read-more-btn {
+    background: var(--primary-500);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease;
+}
+
+.read-more-btn:hover {
+    background: var(--primary-700);
+}
+
+.load-more-section {
+    text-align: center;
+    margin-top: var(--space-xl);
+}
+
+.load-more-btn {
+    background: var(--primary-500);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.load-more-btn:hover {
+    background: var(--primary-700);
+}
+
+/* Mobile Responsive for Articles */
+@media (max-width: 768px) {
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .article-title {
+        font-size: 1.25rem;
+    }
+    
+    .article-card {
+        padding: var(--space-md);
+    }
+    
+    .article-footer {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+}
+
+@media (max-width: 480px) {
+    .article-card {
+        padding: var(--space-sm);
+    }
+    
+    .article-title {
+        font-size: 1.125rem;
+    }
+    
+    .articles-grid {
+        gap: var(--space-sm);
+    }
+}
+}
