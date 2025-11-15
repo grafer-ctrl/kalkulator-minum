@@ -3,215 +3,983 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drink-Dose | Daily Water Intake Calculator</title>
-    <meta name="description" content="Water intake calculator to calculate daily fluid needs based on weight, age, and activity level. Track your hydration and stay healthy.">
-    <meta name="keywords" content="water intake calculator, daily water needs, health, hydration, drink water, healthy lifestyle, fluid balance, dehydration prevention">
-    <meta name="google-site-verification" content="KODE_VERIFIKASI_GOOGLE_KAMU">
-    
-    <!-- AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_TRACKING_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-YOUR_TRACKING_ID');
-    </script>
-    
-    <link rel="stylesheet" href="style.css">
+    <title>Hydration & Kidney Health Calculator</title>
+    <meta name="description" content="Calculate your daily water needs and check your kidney health status">
+    <meta name="theme-color" content="#4a90e2">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #3a7bc8;
+            --secondary: #50c878;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .language-selector {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        @media (min-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .card-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .radio-option {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .radio-option:hover {
+            border-color: var(--primary);
+        }
+        .radio-option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            background: #f8f9fa;
+            display: none;
+        }
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .water-result {
+            text-align: center;
+        }
+        .water-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        .glasses {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .glass {
+            width: 40px;
+            height: 60px;
+            border: 2px solid var(--primary);
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: var(--primary);
+            transition: height 1s ease;
+        }
+        .hydration-schedule {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .schedule-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .schedule-times {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .time-slot {
+            background: var(--primary);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .alarm-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .alarm-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .alarm-btn.enable {
+            background: var(--secondary);
+            color: white;
+        }
+        .alarm-btn.disable {
+            background: var(--danger);
+            color: white;
+        }
+        .alarm-btn:hover {
+            transform: scale(1.05);
+        }
+        .kidney-result {
+            text-align: center;
+        }
+        .egfr-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .egfr-status {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 15px auto;
+            max-width: 200px;
+        }
+        .status-normal {
+            background: var(--secondary);
+            color: white;
+        }
+        .status-moderate {
+            background: var(--warning);
+            color: white;
+        }
+        .status-severe {
+            background: var(--danger);
+            color: white;
+        }
+        .info-section {
+            margin-top: 30px;
+        }
+        .info-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        .info-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .info-title i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        .reference {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .footer-links a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: none;
+            z-index: 100;
+            max-width: 300px;
+        }
+        .install-prompt.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .install-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header Navigation -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-brand">
-                <img src="logo.png" alt="Drink-Dose Logo" class="logo">
-                <span class="brand-name">Drink-Dose</span>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1 id="app-title">Hydration & Kidney Health</h1>
             </div>
-            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav-menu">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="kidney-calculator.html" class="nav-link">Kidney Calculator</a>
-                <a href="artikel.html" class="nav-link">Artikel</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Top Ad Slot - Hidden for development -->
-    <div class="ad-slot ad-top" style="display: none;">
-        <div class="ads">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-XXXX"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+            <div class="language-selector">
+                <button class="lang-btn active" id="lang-en">EN</button>
+                <button class="lang-btn" id="lang-id">ID</button>
+            </div>
+        </header>
+        <main class="main-content">
+            <!-- Water Calculator Section -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-calculator"></i>
+                    <h2 id="water-calc-title">Calculate Your Water Needs</h2>
+                </div>
+               
+                <div class="form-group">
+                    <label for="age" id="age-label">Age</label>
+                    <input type="number" id="age" min="1" max="120" placeholder="Enter your age">
+                </div>
+               
+                <div class="form-group">
+                    <label for="weight" id="weight-label">Weight (kg)</label>
+                    <input type="number" id="weight" min="1" max="300" placeholder="Enter your weight">
+                </div>
+               
+                <div class="form-group">
+                    <label id="activity-label">Activity Level</label>
+                    <div class="radio-group">
+                        <div class="radio-option" data-value="low">
+                            <span id="activity-low">Low</span>
+                        </div>
+                        <div class="radio-option" data-value="moderate">
+                            <span id="activity-moderate">Moderate</span>
+                        </div>
+                        <div class="radio-option" data-value="high">
+                            <span id="activity-high">High</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="activity" value="">
+                </div>
+               
+                <button class="btn" id="calculate-water">
+                    <span id="calculate-water-text">Calculate Water Needs</span>
+                </button>
+               
+                <div class="result" id="water-result">
+                    <div class="water-result">
+                        <p id="daily-need">Your daily water need:</p>
+                        <div class="water-amount" id="water-amount">2.5 L</div>
+                        <p id="equivalent-to">Equivalent to:</p>
+                        <div class="glasses" id="glasses-container">
+                            <!-- Glasses will be generated here -->
+                        </div>
+                       
+                        <div class="hydration-schedule">
+                            <p class="schedule-title" id="schedule-title">Hydration Schedule (Every 2 hours):</p>
+                            <div class="schedule-times" id="schedule-times">
+                                <!-- Schedule times will be generated here -->
+                            </div>
+                           
+                            <div class="alarm-controls">
+                                <button class="alarm-btn enable" id="enable-alarm">
+                                    <i class="fas fa-bell"></i> <span id="enable-alarm-text">Enable Alarm</span>
+                                </button>
+                                <button class="alarm-btn disable" id="disable-alarm">
+                                    <i class="fas fa-bell-slash"></i> <span id="disable-alarm-text">Disable Alarm</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="info-section">
+                    <div class="info-item">
+                        <div class="info-title">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3 id="listen-body-title">Listen to Your Body</h3>
+                        </div>
+                        <p id="listen-body-text">You don't have to obsess over the "2-liter rule." Instead, pay attention to simple signs: clear urine, a lack of excessive thirst, and feeling refreshed are all indicators that you're well-hydrated.</p>
+                    </div>
+                   
+                    <div class="info-item">
+                        <div class="info-title">
+                            <i class="fas fa-globe"></i>
+                            <h3 id="hydration-partner-title">Drink Dose: Your Adaptive Hydration Partner</h3>
+                        </div>
+                        <p id="hydration-partner-text">At drink-dose.com, we believe that smart hydration means tailoring your water intake to your lifestyle, activities, and environment. We support the WHO's view that everyone's hydration needs are dynamic and context-dependent — because every body is unique.</p>
+                    </div>
+                   
+                    <div class="reference">
+                        <p id="reference-text">Reference: WHO – Nutrients in Drinking Water (2005)</p>
+                    </div>
+                </div>
+            </section>
+           
+            <!-- Kidney Health Section -->
+            <section class="card">
+                <div class="card-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <h2 id="kidney-calc-title">Calculate Your Kidney Health Status</h2>
+                </div>
+               
+                <div class="form-group">
+                    <label for="kidney-age" id="kidney-age-label">Age</label>
+                    <input type="number" id="kidney-age" min="1" max="120" placeholder="Enter your age">
+                </div>
+               
+                <div class="form-group">
+                    <label id="gender-label">Gender</label>
+                    <div class="radio-group">
+                        <div class="radio-option" data-value="male">
+                            <span id="gender-male">Male</span>
+                        </div>
+                        <div class="radio-option" data-value="female">
+                            <span id="gender-female">Female</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="gender" value="">
+                </div>
+               
+                <div class="form-group">
+                    <label for="creatinine" id="creatinine-label">Creatinine (mg/dl)</label>
+                    <input type="number" id="creatinine" min="0.1" max="20" step="0.1" placeholder="Enter creatinine level">
+                </div>
+               
+                <div class="form-group">
+                    <label for="urea" id="urea-label">Urea/BUN (mg/dl)</label>
+                    <input type="number" id="urea" min="1" max="200" placeholder="Enter urea/BUN level">
+                </div>
+               
+                <button class="btn" id="calculate-kidney">
+                    <span id="calculate-kidney-text">Calculate Kidney Health</span>
+                </button>
+               
+                <div class="result" id="kidney-result">
+                    <div class="kidney-result">
+                        <p id="egfr-estimate">Estimated eGFR:</p>
+                        <div class="egfr-value" id="egfr-value">90 mL/min/1.73m²</div>
+                        <div class="egfr-status status-normal" id="egfr-status">Normal Kidney Function</div>
+                       
+                        <div class="info-section">
+                            <div class="info-item">
+                                <div class="info-title">
+                                    <i class="fas fa-hospital"></i>
+                                    <h3 id="egfr-title">What is eGFR?</h3>
+                                </div>
+                                <p id="egfr-text">eGFR (estimated Glomerular Filtration Rate) measures how well your kidneys are filtering blood. It's calculated using your age, gender, and creatinine levels. Higher eGFR values indicate better kidney function.</p>
+                            </div>
+                           
+                            <div class="info-item">
+                                <div class="info-title">
+                                    <i class="fas fa-flask"></i>
+                                    <h3 id="creatinine-title">Creatinine Levels</h3>
+                                </div>
+                                <p id="creatinine-text">Creatinine is a waste product from muscle metabolism. Healthy kidneys filter creatinine from the blood. Elevated levels may indicate reduced kidney function.</p>
+                            </div>
+                           
+                            <div class="info-item">
+                                <div class="info-title">
+                                    <i class="fas fa-tint"></i>
+                                    <h3 id="urea-title">Urea/BUN Levels</h3>
+                                </div>
+                                <p id="urea-text">Urea is a waste product from protein breakdown. High urea levels can indicate kidney problems, dehydration, or other medical conditions.</p>
+                            </div>
+                           
+                            <div class="info-item">
+                                <div class="info-title">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <h3 id="categories-title">Kidney Health Categories</h3>
+                                </div>
+                                <ul id="categories-list">
+                                    <li><strong>Normal (Green):</strong> eGFR ≥ 90 mL/min/1.73m² - Kidney function is normal or only mildly reduced.</li>
+                                    <li><strong>Mild to Moderate (Yellow):</strong> eGFR 30-89 mL/min/1.73m² - Kidney function is moderately reduced. May require monitoring and lifestyle changes.</li>
+                                    <li><strong>Severe (Red):</strong> eGFR < 30 mL/min/1.73m² - Severe kidney disease. Requires immediate medical attention and specialized care.</li>
+                                </ul>
+                            </div>
+                        </div>
+                       
+                        <div class="reference">
+                            <p id="kidney-reference-text">Reference: National Kidney Foundation</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+       
+        <!-- Footer with Navigation Links -->
+        <footer>
+            <div class="footer-links">
+                <a href="privacy.html" id="privacy-link">Privacy Policy</a>
+                <a href="terms.html" id="terms-link">Terms & Conditions</a>
+                <a href="about.html" id="about-link">About</a>
+                <a href="contact.html" id="contact-link">Contact</a>
+            </div>
+            <p id="footer-text">© 2023 Hydration & Kidney Health Calculator. This tool is for informational purposes only. Consult a healthcare professional for medical advice.</p>
+        </footer>
+    </div>
+   
+    <div class="install-prompt" id="install-prompt">
+        <p id="install-text">Install this app for a better experience</p>
+        <button class="install-btn" id="install-btn">Install</button>
     </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <section class="hero-section">
-                <h1 class="hero-title">Daily Water Intake Calculator</h1>
-                <p class="hero-subtitle">Calculate your optimal daily water needs and track your hydration goals</p>
-            </section>
+    <script>
+        // Language data (same as before)
+        const translations = {
+            en: {
+                appTitle: "Hydration & Kidney Health",
+                waterCalcTitle: "Calculate Your Water Needs",
+                ageLabel: "Age",
+                weightLabel: "Weight (kg)",
+                activityLabel: "Activity Level",
+                activityLow: "Low",
+                activityModerate: "Moderate",
+                activityHigh: "High",
+                calculateWaterText: "Calculate Water Needs",
+                dailyNeed: "Your daily water need:",
+                equivalentTo: "Equivalent to:",
+                scheduleTitle: "Hydration Schedule (Every 2 hours):",
+                enableAlarmText: "Enable Alarm",
+                disableAlarmText: "Disable Alarm",
+                listenBodyTitle: "Listen to Your Body",
+                listenBodyText: "You don't have to obsess over the '2-liter rule.' Instead, pay attention to simple signs: clear urine, a lack of excessive thirst, and feeling refreshed are all indicators that you're well-hydrated.",
+                hydrationPartnerTitle: "Drink Dose: Your Adaptive Hydration Partner",
+                hydrationPartnerText: "At drink-dose.com, we believe that smart hydration means tailoring your water intake to your lifestyle, activities, and environment. We support the WHO's view that everyone's hydration needs are dynamic and context-dependent — because every body is unique.",
+                referenceText: "Reference: WHO – Nutrients in Drinking Water (2005)",
+                kidneyCalcTitle: "Calculate Your Kidney Health Status",
+                kidneyAgeLabel: "Age",
+                genderLabel: "Gender",
+                genderMale: "Male",
+                genderFemale: "Female",
+                creatinineLabel: "Creatinine (mg/dl)",
+                ureaLabel: "Urea/BUN (mg/dl)",
+                calculateKidneyText: "Calculate Kidney Health",
+                egfrEstimate: "Estimated eGFR:",
+                egfrTitle: "What is eGFR?",
+                egfrText: "eGFR (estimated Glomerular Filtration Rate) measures how well your kidneys are filtering blood. It's calculated using your age, gender, and creatinine levels. Higher eGFR values indicate better kidney function.",
+                creatinineTitle: "Creatinine Levels",
+                creatinineText: "Creatinine is a waste product from muscle metabolism. Healthy kidneys filter creatinine from the blood. Elevated levels may indicate reduced kidney function.",
+                ureaTitle: "Urea/BUN Levels",
+                ureaText: "Urea is a waste product from protein breakdown. High urea levels can indicate kidney problems, dehydration, or other medical conditions.",
+                categoriesTitle: "Kidney Health Categories",
+                categoriesList: [
+                    "<strong>Normal (Green):</strong> eGFR ≥ 90 mL/min/1.73m² - Kidney function is normal or only mildly reduced.",
+                    "<strong>Mild to Moderate (Yellow):</strong> eGFR 30-89 mL/min/1.73m² - Kidney function is moderately reduced. May require monitoring and lifestyle changes.",
+                    "<strong>Severe (Red):</strong> eGFR < 30 mL/min/1.73m² - Severe kidney disease. Requires immediate medical attention and specialized care."
+                ],
+                kidneyReferenceText: "Reference: National Kidney Foundation",
+                footerText: "© 2023 Hydration & Kidney Health Calculator. This tool is for informational purposes only. Consult a healthcare professional for medical advice.",
+                installText: "Install this app for a better experience",
+                privacyLink: "Privacy Policy",
+                termsLink: "Terms & Conditions",
+                aboutLink: "About",
+                contactLink: "Contact"
+            },
+            id: {
+                appTitle: "Hidrasi & Kesehatan Ginjal",
+                waterCalcTitle: "Hitung Kebutuhan Air Anda",
+                ageLabel: "Usia",
+                weightLabel: "Berat Badan (kg)",
+                activityLabel: "Tingkat Aktivitas",
+                activityLow: "Rendah",
+                activityModerate: "Sedang",
+                activityHigh: "Tinggi",
+                calculateWaterText: "Hitung Kebutuhan Air",
+                dailyNeed: "Kebutuhan air harian Anda:",
+                equivalentTo: "Setara dengan:",
+                scheduleTitle: "Jadwal Hidrasi (Setiap 2 jam):",
+                enableAlarmText: "Aktifkan Alarm",
+                disableAlarmText: "Nonaktifkan Alarm",
+                listenBodyTitle: "Dengarkan Tubuh Anda",
+                listenBodyText: "Anda tidak perlu terobsesi dengan 'aturan 2 liter'. Sebagai gantinya, perhatikan tanda-tanda sederhana: urine jernih, tidak merasa haus berlebihan, dan merasa segar adalah indikator bahwa Anda terhidrasi dengan baik.",
+                hydrationPartnerTitle: "Drink Dose: Partner Hidrasi Adaptif Anda",
+                hydrationPartnerText: "Di drink-dose.com, kami percaya bahwa hidrasi yang cerdas berarti menyesuaikan asupan air Anda dengan gaya hidup, aktivitas, dan lingkungan Anda. Kami mendukung pandangan WHO bahwa kebutuhan hidrasi setiap orang bersifat dinamis dan bergantung pada konteks — karena setiap tubuh unik.",
+                referenceText: "Referensi: WHO – Nutrients in Drinking Water (2005)",
+                kidneyCalcTitle: "Hitung Status Kesehatan Ginjal Anda",
+                kidneyAgeLabel: "Usia",
+                genderLabel: "Jenis Kelamin",
+                genderMale: "Laki-laki",
+                genderFemale: "Perempuan",
+                creatinineLabel: "Kreatinin (mg/dl)",
+                ureaLabel: "Urea/BUN (mg/dl)",
+                calculateKidneyText: "Hitung Kesehatan Ginjal",
+                egfrEstimate: "Perkiraan eGFR:",
+                egfrTitle: "Apa itu eGFR?",
+                egfrText: "eGFR (estimated Glomerular Filtration Rate) mengukur seberapa baik ginjal Anda menyaring darah. Ini dihitung menggunakan usia, jenis kelamin, dan kadar kreatinin Anda. Nilai eGFR yang lebih tinggi menunjukkan fungsi ginjal yang lebih baik.",
+                creatinineTitle: "Tingkat Kreatinin",
+                creatinineText: "Kreatinin adalah produk limbah dari metabolisme otot. Ginjal yang sehat menyaring kreatinin dari darah. Kadar yang meningkat dapat mengindikasikan penurunan fungsi ginjal.",
+                ureaTitle: "Tingkat Urea/BUN",
+                ureaText: "Urea adalah produk limbah dari pemecahan protein. Kadar urea yang tinggi dapat mengindikasikan masalah ginjal, dehidrasi, atau kondisi medis lainnya.",
+                categoriesTitle: "Kategori Kesehatan Ginjal",
+                categoriesList: [
+                    "<strong>Normal (Hijau):</strong> eGFR ≥ 90 mL/min/1.73m² - Fungsi ginjal normal atau hanya sedikit berkurang.",
+                    "<strong>Ringan hingga Sedang (Kuning):</strong> eGFR 30-89 mL/min/1.73m² - Fungsi ginjal berkurang secara moderat. Mungkin memerlukan pemantauan dan perubahan gaya hidup.",
+                    "<strong>Parah (Merah):</strong> eGFR < 30 mL/min/1.73m² - Penyakit ginjal parah. Memerlukan perhatian medis segera dan perawatan khusus."
+                ],
+                kidneyReferenceText: "Referensi: National Kidney Foundation",
+                footerText: "© 2023 Kalkulator Hidrasi & Kesehatan Ginjal. Alat ini hanya untuk tujuan informasi. Konsultasikan dengan profesional kesehatan untuk nasihat medis.",
+                installText: "Instal aplikasi ini untuk pengalaman yang lebih baik",
+                privacyLink: "Kebijakan Privasi",
+                termsLink: "Syarat & Ketentuan",
+                aboutLink: "Tentang",
+                contactLink: "Kontak"
+            }
+        };
 
-            <!-- Calculator Section -->
-            <section class="calculator-section">
-                <div class="calculator-card">
-                    <h2 class="section-title">Calculate Your Water Needs</h2>
-                    
-                    <form class="calculator-form" id="waterCalculator">
-                        <div class="input-group">
-                            <label for="weight" class="input-label">Weight (kg)</label>
-                            <input type="number" id="weight" class="input-field" placeholder="Enter your weight" min="1" max="300" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="age" class="input-label">Age (years)</label>
-                            <input type="number" id="age" class="input-field" placeholder="Enter your age" min="1" max="120" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label class="input-label">Activity Level</label>
-                            <div class="activity-selector">
-                                <button type="button" class="activity-btn" data-level="light">Light</button>
-                                <button type="button" class="activity-btn" data-level="moderate">Moderate</button>
-                                <button type="button" class="activity-btn" data-level="heavy">Heavy</button>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="calculate-btn">Calculate Water Needs</button>
-                    </form>
+        // DOM elements for footer links
+        const privacyLink = document.getElementById('privacy-link');
+        const termsLink = document.getElementById('terms-link');
+        const aboutLink = document.getElementById('about-link');
+        const contactLink = document.getElementById('contact-link');
 
-                    <!-- Results Section -->
-                    <div class="results-section" id="resultsSection" style="display: none;">
-                        <h3 class="results-title">Your Daily Water Requirements</h3>
-                        <div class="results-grid">
-                            <div class="result-item">
-                                <div class="result-value" id="litersResult">0</div>
-                                <div class="result-label">Liters per day</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value" id="glassesResult">0</div>
-                                <div class="result-label">Glasses (250ml) per day</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Hourly Tracking -->
-                        <div class="tracking-section">
-                            <h4 class="tracking-title">Hourly Intake Tracking</h4>
-                            <p class="tracking-subtitle">Track your water intake throughout the day. Click each hour as you drink water.</p>
-                            <div class="tracking-timeline" id="trackingTimeline">
-                                <!-- Timeline will be generated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        // Update language function (extended to include footer links)
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
 
-            <!-- Middle Ad Slot - Hidden for development -->
-            <div class="ad-slot ad-middle" style="display: none;">
-                <div class="ads">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-XXXX"
-                         data-ad-slot="1234567891"
-                         data-ad-format="auto"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
+            // ... (all previous updates)
 
-            <!-- WHO Article Section -->
-            <section class="tips-section">
-                <h2 class="section-title">💧 The Importance of Adjusting Your Water Intake to Activity and Environment</h2>
-                <p class="who-subtitle">Based on WHO Principles – Nutrients in Drinking Water (2005)</p>
-                
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <h3>🌡️ Environment Affects Hydration Needs</h3>
-                        <p>Temperature and humidity have a significant influence on how much water your body requires. In hot or humid climates, you lose more fluids through sweat, meaning you need to drink more water. In cooler environments, water loss is lower — but proper hydration is still essential for organ function and metabolism.</p>
-                    </div>
-                    <div class="tip-card">
-                        <h3>🏃‍♀️ Physical Activity Increases Fluid Demand</h3>
-                        <p>If you're physically active — whether through exercise or outdoor work — your daily hydration needs will rise. Water helps maintain electrolyte balance, regulate body temperature, and support muscle recovery. Drink water before, during, and after physical activity to keep your performance and energy levels high.</p>
-                    </div>
-                    <div class="tip-card">
-                        <h3>🥗 Water Isn't the Only Source of Hydration</h3>
-                        <p>WHO also highlights that hydration doesn't come from drinking water alone. Foods like fruits, vegetables, and soups contribute significantly to your total daily fluid intake. This means that balanced nutrition plays an important role in staying hydrated.</p>
-                    </div>
-                </div>
-                
-                <div class="who-reference">
-                    <h4>💡 Listen to Your Body</h4>
-                    <p>You don't have to obsess over the "2-liter rule." Instead, pay attention to simple signs: clear urine, a lack of excessive thirst, and feeling refreshed are all indicators that you're well-hydrated.</p>
-                    
-                    <h4>🌍 Drink Dose: Your Adaptive Hydration Partner</h4>
-                    <p>At <strong>drink-dose.com</strong>, we believe that smart hydration means tailoring your water intake to your lifestyle, activities, and environment. We support the WHO's view that everyone's hydration needs are dynamic and context-dependent — because every body is unique.</p>
-                    
-                    <p><em>Reference: WHO – Nutrients in Drinking Water (2005)</em></p>
-                </div>
-            </section>
-        </div>
-    </main>
+            // Update footer links
+            privacyLink.textContent = t.privacyLink;
+            termsLink.textContent = t.termsLink;
+            aboutLink.textContent = t.aboutLink;
+            contactLink.textContent = t.contactLink;
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="Drink-Dose Logo" class="footer-logo">
-                    <span class="footer-brand-name">Drink-Dose</span>
-                </div>
-                <div class="footer-links">
-                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-                    <a href="terms.html" class="footer-link">Terms of Service</a>
-                    <a href="contact.html" class="footer-link">Contact</a>
-                    <a href="about.html" class="footer-link">About</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 HydroLife. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            // ... rest of previous updateLanguage code
+            appTitle.textContent = t.appTitle;
+            waterCalcTitle.textContent = t.waterCalcTitle;
+            ageLabel.textContent = t.ageLabel;
+            weightLabel.textContent = t.weightLabel;
+            activityLabel.textContent = t.activityLabel;
+            activityLow.textContent = t.activityLow;
+            activityModerate.textContent = t.activityModerate;
+            activityHigh.textContent = t.activityHigh;
+            calculateWaterText.textContent = t.calculateWaterText;
+            dailyNeed.textContent = t.dailyNeed;
+            equivalentTo.textContent = t.equivalentTo;
+            scheduleTitle.textContent = t.scheduleTitle;
+            enableAlarmText.textContent = t.enableAlarmText;
+            disableAlarmText.textContent = t.disableAlarmText;
+            listenBodyTitle.textContent = t.listenBodyTitle;
+            listenBodyText.textContent = t.listenBodyText;
+            hydrationPartnerTitle.textContent = t.hydrationPartnerTitle;
+            hydrationPartnerText.textContent = t.hydrationPartnerText;
+            referenceText.textContent = t.referenceText;
+            kidneyCalcTitle.textContent = t.kidneyCalcTitle;
+            kidneyAgeLabel.textContent = t.kidneyAgeLabel;
+            genderLabel.textContent = t.genderLabel;
+            genderMale.textContent = t.genderMale;
+            genderFemale.textContent = t.genderFemale;
+            creatinineLabel.textContent = t.creatinineLabel;
+            ureaLabel.textContent = t.ureaLabel;
+            calculateKidneyText.textContent = t.calculateKidneyText;
+            egfrEstimate.textContent = t.egfrEstimate;
+            egfrTitle.textContent = t.egfrTitle;
+            egfrText.textContent = t.egfrText;
+            creatinineTitle.textContent = t.creatinineTitle;
+            creatinineText.textContent = t.creatinineText;
+            ureaTitle.textContent = t.ureaTitle;
+            ureaText.textContent = t.ureaText;
+            categoriesTitle.textContent = t.categoriesTitle;
 
-    <!-- Bottom Ad Slot - Hidden for development -->
-    <div class="ad-slot ad-bottom" style="display: none;">
-        <div class="ads">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-XXXX"
-                 data-ad-slot="1234567892"
-                 data-ad-format="auto"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-    </div>
+            categoriesList.innerHTML = '';
+            t.categoriesList.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                categoriesList.appendChild(li);
+            });
 
-    <script src="script.js"></script>
+            kidneyReferenceText.textContent = t.kidneyReferenceText;
+            footerText.textContent = t.footerText;
+            installText.textContent = t.installText;
+
+            if (lang === 'en') {
+                langEnBtn.classList.add('active');
+                langIdBtn.classList.remove('active');
+            } else {
+                langEnBtn.classList.remove('active');
+                langIdBtn.classList.add('active');
+            }
+        }
+
+        // ... rest of the JavaScript (unchanged)
+        let currentLang = 'en';
+        const langEnBtn = document.getElementById('lang-en');
+        const langIdBtn = document.getElementById('lang-id');
+        const appTitle = document.getElementById('app-title');
+        const waterCalcTitle = document.getElementById('water-calc-title');
+        const ageLabel = document.getElementById('age-label');
+        const weightLabel = document.getElementById('weight-label');
+        const activityLabel = document.getElementById('activity-label');
+        const activityLow = document.getElementById('activity-low');
+        const activityModerate = document.getElementById('activity-moderate');
+        const activityHigh = document.getElementById('activity-high');
+        const calculateWaterText = document.getElementById('calculate-water-text');
+        const dailyNeed = document.getElementById('daily-need');
+        const equivalentTo = document.getElementById('equivalent-to');
+        const scheduleTitle = document.getElementById('schedule-title');
+        const enableAlarmText = document.getElementById('enable-alarm-text');
+        const disableAlarmText = document.getElementById('disable-alarm-text');
+        const listenBodyTitle = document.getElementById('listen-body-title');
+        const listenBodyText = document.getElementById('listen-body-text');
+        const hydrationPartnerTitle = document.getElementById('hydration-partner-title');
+        const hydrationPartnerText = document.getElementById('hydration-partner-text');
+        const referenceText = document.getElementById('reference-text');
+        const kidneyCalcTitle = document.getElementById('kidney-calc-title');
+        const kidneyAgeLabel = document.getElementById('kidney-age-label');
+        const genderLabel = document.getElementById('gender-label');
+        const genderMale = document.getElementById('gender-male');
+        const genderFemale = document.getElementById('gender-female');
+        const creatinineLabel = document.getElementById('creatinine-label');
+        const ureaLabel = document.getElementById('urea-label');
+        const calculateKidneyText = document.getElementById('calculate-kidney-text');
+        const egfrEstimate = document.getElementById('egfr-estimate');
+        const egfrTitle = document.getElementById('egfr-title');
+        const egfrText = document.getElementById('egfr-text');
+        const creatinineTitle = document.getElementById('creatinine-title');
+        const creatinineText = document.getElementById('creatinine-text');
+        const ureaTitle = document.getElementById('urea-title');
+        const ureaText = document.getElementById('urea-text');
+        const categoriesTitle = document.getElementById('categories-title');
+        const categoriesList = document.getElementById('categories-list');
+        const kidneyReferenceText = document.getElementById('kidney-reference-text');
+        const footerText = document.getElementById('footer-text');
+        const installText = document.getElementById('install-text');
+
+        langEnBtn.addEventListener('click', () => updateLanguage('en'));
+        langIdBtn.addEventListener('click', () => updateLanguage('id'));
+
+        // Radio button functionality
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const group = this.closest('.radio-group');
+                group.querySelectorAll('.radio-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                const hiddenInput = group.nextElementSibling;
+                if (hiddenInput && hiddenInput.type === 'hidden') {
+                    hiddenInput.value = this.getAttribute('data-value');
+                }
+            });
+        });
+
+        // Water calculation
+        document.getElementById('calculate-water').addEventListener('click', function() {
+            const age = parseInt(document.getElementById('age').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            const activity = document.getElementById('activity').value;
+           
+            if (!age || !weight || !activity) {
+                alert(currentLang === 'en' ? 'Please fill in all fields' : 'Harap isi semua bidang');
+                return;
+            }
+           
+            let waterNeeded = weight * 30;
+            if (activity === 'low') waterNeeded *= 1.0;
+            else if (activity === 'moderate') waterNeeded *= 1.2;
+            else if (activity === 'high') waterNeeded *= 1.5;
+           
+            const liters = waterNeeded / 1000;
+            document.getElementById('water-amount').textContent = liters.toFixed(1) + ' L';
+           
+            const glassesContainer = document.getElementById('glasses-container');
+            glassesContainer.innerHTML = '';
+            const glassesCount = Math.ceil(liters * 1000 / 250);
+            for (let i = 0; i < glassesCount; i++) {
+                const glass = document.createElement('div');
+                glass.className = 'glass';
+                const glassFill = document.createElement('div');
+                glassFill.className = 'glass-fill';
+                glassFill.style.height = '100%';
+                glass.appendChild(glassFill);
+                glassesContainer.appendChild(glass);
+            }
+           
+            const scheduleTimes = document.getElementById('schedule-times');
+            scheduleTimes.innerHTML = '';
+            const startTime = 8;
+            const interval = 2;
+            for (let i = 0; i < glassesCount; i++) {
+                const time = (startTime + i * interval) % 24;
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.textContent = `${time}:00`;
+                scheduleTimes.appendChild(timeSlot);
+            }
+           
+            document.getElementById('water-result').classList.add('show');
+        });
+
+        // Kidney health calculation
+        document.getElementById('calculate-kidney').addEventListener('click', function() {
+            const age = parseInt(document.getElementById('kidney-age').value);
+            const gender = document.getElementById('gender').value;
+            const creatinine = parseFloat(document.getElementById('creatinine').value);
+            const urea = parseInt(document.getElementById('urea').value);
+           
+            if (!age || !gender || !creatinine || !urea) {
+                alert(currentLang === 'en' ? 'Please fill in all fields' : 'Harap isi semua bidang');
+                return;
+            }
+           
+            let egfr;
+            if (gender === 'male') {
+                egfr = 186 * Math.pow(creatinine, -1.154) * Math.pow(age, -0.203);
+            } else {
+                egfr = 186 * Math.pow(creatinine, -1.154) * Math.pow(age, -0.203) * 0.742;
+            }
+           
+            document.getElementById('egfr-value').textContent = egfr.toFixed(0) + ' mL/min/1.73m²';
+           
+            const statusElement = document.getElementById('egfr-status');
+            statusElement.className = 'egfr-status';
+           
+            if (egfr >= 90) {
+                statusElement.classList.add('status-normal');
+                statusElement.textContent = currentLang === 'en' ? 'Normal Kidney Function' : 'Fungsi Ginjal Normal';
+            } else if (egfr >= 30) {
+                statusElement.classList.add('status-moderate');
+                statusElement.textContent = currentLang === 'en' ? 'Moderate Kidney Disease' : 'Penyakit Ginjal Sedang';
+            } else {
+                statusElement.classList.add('status-severe');
+                statusElement.textContent = currentLang === 'en' ? 'Severe Kidney Disease' : 'Penyakit Ginjal Parah';
+            }
+           
+            document.getElementById('kidney-result').classList.add('show');
+        });
+
+        // Alarm functionality
+        let alarmInterval;
+        document.getElementById('enable-alarm').addEventListener('click', function() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 800;
+            gainNode.gain.value = 0.1;
+
+            alarmInterval = setInterval(() => {
+                oscillator.start();
+                setTimeout(() => oscillator.stop(), 500);
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Hydration Reminder', {
+                        body: currentLang === 'en' ? 'Time to drink water!' : 'Waktunya minum air!',
+                        icon: '/icon.png'
+                    });
+                }
+            }, 2 * 60 * 60 * 1000);
+
+            alert(currentLang === 'en' ? 'Alarm enabled. You will be reminded every 2 hours.' : 'Alarm diaktifkan. Anda akan diingatkan setiap 2 jam.');
+        });
+
+        document.getElementById('disable-alarm').addEventListener('click', function() {
+            if (alarmInterval) {
+                clearInterval(alarmInterval);
+                alert(currentLang === 'en' ? 'Alarm disabled.' : 'Alarm dinonaktifkan.');
+            }
+        });
+
+        // PWA Installation
+        let deferredPrompt;
+        const installPrompt = document.getElementById('install-prompt');
+        const installBtn = document.getElementById('install-btn');
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.classList.add('show');
+        });
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installPrompt.classList.remove('show');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered: ', reg))
+                    .catch(err => console.log('SW registration failed: ', err));
+            });
+        }
+
+        // Initialize
+        updateLanguage('en');
+    </script>
 </body>
 </html>
